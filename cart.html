@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cartt {
+            text-align: center;
+            font-weight: bold;
+            background-color: yellow;
+            height: 50px;
+        }
+
+        .maindiv {
+            text-align: center;
+        }
+
+        .totalcost {
+            color: grey;
+            font-size: smaller;
+            margin-top: -50px;
+            margin-bottom: 10px;
+        }
+
+        .checkout {
+            background-color: grey;
+            width: 119px;
+            height: 40px;
+            color: honeydew;
+            font-weight: bold;
+        }
+
+        .price1 {
+            margin-left: 1000px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="cartt">Cart Page</h1>
+    </hr>
+    <select id="sortByPrice" class='price1' onchange="handlePriceSort()">
+        <option value="">Sort By Price</option>
+        <option value="low">Low To High</option>
+        <option value="high">High To Low</option>
+    </select>
+    <select id="sortByName" class='price2' onchange="handleNameSort()">
+        <option value="">Sort By Name</option>
+        <option value="asc">Ascending</option>
+        <option value="dsc">Descending</option>
+    </select>
+    <h1 id="total"></h1>
+    <div id="dis" class="maindiv"></div>
+
+</body>
+
+</html>
+<script>
+    var cartItems = JSON.parse(localStorage.getItem("bag"));
+    console.log(cartItems);
+    displayItem(cartItems);
+
+    function handlePriceSort() {
+        console.log("here");
+        var selected = document.getElementById("sortByPrice").value;
+        if (selected == "low") {
+            cartItems = cartItems.sort(function (a, b) {
+                return a.price - b.price;
+            });
+            displayItem(cartItems);
+        }
+        if (selected == "high") {
+            cartItems = cartItems.sort(function (a, b) {
+                return b.price - a.price;
+            });
+            displayItem(cartItems);
+        }
+        console.log(cartItems);
+        // displayItem(cartItems);
+    }
+
+    function handleNameSort() {
+        var selected = document.getElementById("sortByName").value;
+        if (selected == 'asc') {
+            cartItems = cartItems.sort(function (a, b) {
+                return a.name > b.name ? 1 : b.name > a.name ? -1 : 0;
+            });
+            displayItem(cartItems);
+        }
+        if (selected == 'dsc') {
+            cartItems = cartItems.sort(function (a, b) {
+                return a.name > b.name ? -1 : b.name > a.name ? 1 : 0;
+            });
+            displayItem(cartItems);
+        }
+        console.log(cartItems);
+
+    }
+    function displayItem(cartItems) {
+        console.log('itemm', cartItems)
+        document.querySelector("#dis").innerHTML = "";
+
+        cartItems.map(function (item) {
+
+            var h1 = document.createElement("h1");
+            h1.textContent = ` ${item.name}`;
+            h1.style.color = 'grey';
+            h1.style.fontSize = '22px'
+
+            var h2 = document.createElement("h2");
+            h2.textContent = `Rs: ${item.price}`;
+
+            var img = document.createElement("img");
+            img.setAttribute("src", item.image);
+            img.style.height = '230px'
+            img.style.width = '250px'
+
+            var hr = document.createElement("hr");
+            console.log('asdd', item)
+            document.querySelector("#dis").append(img, h1, h2, hr);
+        });
+    }
+
+    var total = cartItems.reduce(function (acc, cv) {
+        return acc + Number(cv.price);
+    }, 0);
+
+    console.log(total);
+    localStorage.setItem("total_details", JSON.stringify(total))
+    //document.getElementById("total").textContent = total;
+
+    document.getElementById("total").innerHTML = `<h5 class='totalcost'>Total Cost is Rs:${total}</h5>
+    <button onclick="goToCheckout()" class='checkout' >Checkout</button>`;
+
+    function goToCheckout() {
+        window.location.href = "checkout.html"
+    }
+</script>

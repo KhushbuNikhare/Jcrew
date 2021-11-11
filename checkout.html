@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="code1.css">
+</head>
+
+<body>
+    <div class="top">
+        <h1>CHECKOUT</h1>
+    </div>
+    <div class="container">
+
+        <div class="sub_cont">
+            <p class="left">CONTACT INFORMATION<span class="right"> Already have an account ? Log in</span> </p>
+            <div class="col-50">
+                <h3>Billing Address</h3>
+                <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                <input type="text" id="fname" name="firstname" placeholder="Full Name">
+                <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                <input type="text" id="email" name="email" placeholder="Email address">
+                <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                <input type="text" id="adr" name="address" placeholder="Address">
+                <label for="city"><i class="fa fa-institution"></i> City</label>
+                <input type="text" id="city" name="city" placeholder="City Name">
+
+                <div class="row">
+                    <div class="col-50">
+                        <label for="state">State</label>
+                        <input type="text" id="state" name="state" placeholder="">
+                    </div>
+                    <div class="col-50">
+                        <label for="zip">Pin Code</label>
+                        <input type="text" id="zip" name="zip" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button onclick="proceed(event)"> Proceed to Pay</button>
+        </div>
+
+        <div class="container2">
+            <div class="right_box">
+                <input class="input" id="coupan" placeholder="Gift card or discount code" />
+                <button class="btn">Apply</button>
+                <hr>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="align_left">Subtotal</th>
+                            <th class="align_right">0</th>
+
+                        <tr>
+                            <th class="align_left">Shipping</th>
+                            <th class="small_text">Calculated at next step</th>
+                        </tr>
+
+                        <th class="total">Total
+                            <p class="upper"> Including &#8377;197.67 in taxes</p>
+                        </th>
+                        <th class="align_right" rowspan="2" id="total_append"> Append total amount here</th>
+                        </tr>
+
+                        <tr>
+                            <th class="align_left"></th>
+
+                        </tr>
+
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+
+
+<script>
+    let total = JSON.parse(localStorage.getItem("total_details"))
+    console.log('maindata', total)
+    let apped = document.getElementById("total_append")
+
+    apped.innerHTML = total
+
+    let coupan = document.getElementById("coupan")
+    console.log(coupan)
+
+    let apply = document.querySelector(".btn")
+    apply.addEventListener("click", validate)
+
+
+    function validate() {
+        let coupan = document.getElementById("coupan")
+        console.log(coupan.value)
+        if (coupan.value === "masai30") {
+            alert("Coupan successfully applied. Please check the updated total amount.")
+            apped.innerHTML = Number(total - total * .30)
+        } else {
+            alert("Invalid Coupan")
+        }
+    }
+
+    function proceed(e) {
+        e.preventDefault()
+        console.log("hi")
+        window.location.href = "payment.html"
+    }
+</script>
