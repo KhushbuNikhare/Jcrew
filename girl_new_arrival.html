@@ -295,7 +295,7 @@
     items.image = data[0].image;
 
     let addtocart = document.getElementById("addtocart");
-    addtocart.addEventListener("click", add);
+    addtocart.addEventListener("click", add); add
 
     function add() {
 
@@ -309,6 +309,6 @@
 
 
         localStorage.setItem("bag", JSON.stringify(product))
-
+        window.alert("Product Added to cart successfully.")
     }
 </script>

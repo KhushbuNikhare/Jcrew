@@ -12,9 +12,9 @@
         }
 
         #container {
-            width: 80%;
+            width: 75%;
             height: 600px;
-            background-image: url("https://img.freepik.com/free-photo/cosmetics-arranged-dusty-dark-background_23-2148181475.jpg?size=626&ext=jpg");
+            background-image: url("https://www.ecotextile.com/images/stories/2021/April/JCrew.jpg");
             background-size: cover;
             margin: auto;
         }
@@ -122,32 +122,6 @@
 </body>
 
 </html>
-<script>
-    function login(e) {
-        e.preventDefault();
-        console.log("hi")
-        let myForm = document.getElementById("form");
-        console.log(myForm)
+<script src="script1.js">
 
-        let email = myForm.email.value;
-
-        let password = myForm.password.value;
-        console.log(email, password)
-        let all_users = JSON.parse(localStorage.getItem("users"))
-
-        let result = false;
-        all_users.forEach(element => {
-
-            if (element.email === email && element.password == password) {
-
-                result = true
-                window.location.href = "home_page.html";
-            }
-        });
-
-        if (!result) {
-            alert("Invalid Credentials");
-        }
-
-    }
 </script>

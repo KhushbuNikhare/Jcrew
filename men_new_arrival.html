@@ -306,9 +306,8 @@
         let product = JSON.parse(localStorage.getItem("bag"))
 
         product.push(items)
-
-
         localStorage.setItem("bag", JSON.stringify(product))
+        window.alert("Product Added to cart successfully.")
 
     }
 </script>
